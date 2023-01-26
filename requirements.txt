@@ -1,0 +1,12 @@
+psycopg2-binary>=2.9
+itsdangerous>=2.1
+authlib>=1.1
+sqlalchemy>=1.4
+#celery>=5.2
+#redis>=4.4
+coverage>=6.2
+
+flask>=2.2
+flask-cli>=0.4
+flask-sqlalchemy>=2.5
+flask-migrate>=3.1
