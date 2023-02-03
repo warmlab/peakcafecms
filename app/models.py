@@ -12,8 +12,11 @@ from urllib.request import Request
 #from flask import current_app#, url_for
 from flask_sqlalchemy import SQLAlchemy
 
-from itsdangerous import TimedJSONWebSignatureSerializer as TimedSerializer
-from itsdangerous import JSONWebSignatureSerializer as Serializer
+from authlib.jose import JsonWebSignature, JsonWebToken
+#from authlib.jose import jwt
+from itsdangerous import TimedSerializer
+#from itsdangerous import TimedJSONWebSignatureSerializer as TimedSerializer
+#from itsdangerous import JSONWebSignatureSerializer as Serializer
 from itsdangerous import SignatureExpired, BadSignature
 
 db = SQLAlchemy()
@@ -153,7 +156,7 @@ class Member(BaseModel):
     _include_column_ = ['openid', 'nickname', 'avatarUrl', 'privilege', 'name', 'phone', 'access_token', 'expires_time']
 
     id = db.Column(db.Integer, primary_key=True)
-    openid = db.Column(db.String(64), unique=True) # used in weixin
+    openid = db.Column(db.String(64), unique=True) # used in third party institute
     name = db.Column(db.String(128))
     nickname = db.Column(db.String(128))
     phone = db.Column(db.String(12))
@@ -204,7 +207,36 @@ class Member(BaseModel):
         except BadSignature:
             return None # invalid token
 
-        return MemeberOpenid.query.get(data['openid'])
+        return Memeber.query.get(data['openid'])
+
+class Tag(BaseModel):
+    __tablename__ = 'tag'
+    _include_column_ = []
+    id = db.Column(db.Integer, primary_key=True)
+    code = db.Column(db.String(32), unique=True, index=True, nullable=True)
+    name = db.Column(db.String(128), index=True)
+    display_code = db.Column(db.String(64))
+    display_image = db.Column(db.String(1024))
+
+    products = db.relationship("ProductTag", back_populates="tag")
+
+    def __repr__(self):
+        return self.name
+
+class ProductTag(BaseModel):
+    __tablename__ = 'product_tag'
+    _include_column_ = []
+
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'), primary_key=True)
+    tag_id = db.Column(db.Integer, db.ForeignKey('tag.id'), primary_key=True)
+    index = db.Column(db.SmallInteger, default=0) # sequence number in list
+    title = db.Column(db.String(256))
+
+    tag = db.relationship("Tag", back_populates="products")
+    product = db.relationship("Product", back_populates="tags")
+
+    def __repr__(self) -> str:
+        return self.title
 
 class ProductCategory(BaseModel):
     __tablename__ = 'product_category'
@@ -213,6 +245,9 @@ class ProductCategory(BaseModel):
     id = db.Column(db.Integer, primary_key=True)
     code = db.Column(db.String(32), unique=True, index=True, nullable=True)
     name = db.Column(db.String(128), index=True)
+    extra_info = db.Column(db.String(128))
+    piece = db.Column(db.Integer, default=1) # 数量
+    price = db.Column(db.Integer, default=100) # 价格，单位分
     index = db.Column(db.SmallInteger, default=0) # sequence number in list
     #promote_allowed = db.Column(db.Boolean, default=True) # 团购允许标志
     status = db.Column(db.Integer, default=0) # status 0x01-deleted
@@ -235,6 +270,7 @@ class Product(BaseModel):
     id = db.Column(db.Integer, primary_key=True)
     code = db.Column(db.String(32), nullable=False, unique=True, index=True)
     name = db.Column(db.String(128), unique=True, index=True)
+    piece = db.Column(db.Integer, default=1) # 数量
     price = db.Column(db.Integer, default=999900)
     member_price = db.Column(db.Integer, default=999900) # price for member
     promote_price = db.Column(db.Integer, default=999900) # the price of promote
@@ -262,6 +298,8 @@ class Product(BaseModel):
 
     images = db.relationship('ProductImage', back_populates='product', order_by="asc(ProductImage.index)")
     orders = db.relationship('OrderProduct', back_populates='product')
+
+    tags = db.relationship('ProductTag', back_populates='product')
 
     def __repr__(self):
         return self.name
@@ -306,7 +344,7 @@ class Order(BaseModel):
 
     code = db.Column(db.String(32), primary_key=True, index=True) # order coder
     payment_code = db.Column(db.String(128), nullable=True) # code from third party
-    cashier = models.ForeignKey(Staff)
+    #cashier = models.ForeignKey(Staff)
     original_cost = db.Column(db.Integer, default=0) # original cost of order
     cost = db.Column(db.Integer, default=0) # cost at present
     delivery_fee = db.Column(db.Integer, default=0)
@@ -337,7 +375,7 @@ class Order(BaseModel):
 
     # the address of the order
     address = db.relationship('OrderAddress', uselist=False, back_populates='order')
-    payments = db.relationship('OrderPayment', back_populates='order')
+    #payments = db.relationship('OrderPayment', back_populates='order')
 
     shoppoint_id = db.Column(db.Integer, db.ForeignKey('shoppoint.id'), nullable=True)
     shoppoint = db.relationship('Shoppoint',
@@ -397,7 +435,6 @@ class OrderProduct(BaseModel):
     id = db.Column(db.Integer, primary_key=True)
     order_code = db.Column(db.String(32), db.ForeignKey('order.code'))
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
-    size_id = db.Column(db.Integer, db.ForeignKey('size.id'))
 
     price = db.Column(db.Integer, default=0) # 商品在该订单中实际支付的价格
     amount = db.Column(db.Integer, default=0) # 该订单中产品的数量

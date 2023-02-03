@@ -1,0 +1,45 @@
+{% extends "base.html" -%}
+{%block style_area-%}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/menu.css')}}">
+{%-endblock%}
+{%block main_area-%}
+<div class="main-area">
+    <aside class="nav-area navbar navbar-expand-lg navbar-light bg-light rounded fix-top categories">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menucontrol" aria-controls="menucontrol" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>Categories
+      </button>
+      <div class="collapse navbar-collapse" id="menucontrol">
+        <div class="title">Categories</div>
+        <ul class="menu">
+          {%- for item in categories %}
+          {%- if item.code == category.code %}
+          <li class="menu-item active">
+            <div>{{item.name | title}}</div>
+          </li>
+          {%- else %}
+          <li class="menu-item">
+            <a class="nav-link active" href="/menu/{{item.code}}">{{item.name | title}}</a>
+          </li>
+          {%- endif %}
+          {%- endfor %}
+        </ul>
+        </div>
+      </aside>
+    <section class="content">
+        <div class="title">
+            {#<div class="rect left"></div>#}
+            <div class="category">{{category.name | title}}</div>
+            {#<div class="rect right"></div>#}
+        </div>
+        <div class="menu-body">
+            {%- for product in category.products %}
+            <div class="menu-item">
+            <div class="name"><span class="seq">#{{product.index}} - </span>{{product.name | capitalize}}</div>
+                <div class="kind">Japanese Dish</div>
+                <div class="price">${{"%.2f" | format(product.price/100)}}</div>
+            </div>
+            {%- endfor %}
+        </div>
+    </section>
+</div>
+{%-endblock%}

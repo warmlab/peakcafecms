@@ -1,0 +1,26 @@
+{% extends "base.html" -%}
+{%block style_area-%}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/home.css')}}">
+{%-endblock%}
+{%block main_area-%}
+<div class="main-area">
+    <div class="recommend">
+        <div class="content">
+            <h1 class="title">Enjoy Delicious</h1>
+            <section class="product">
+                <img class="img-fluid" src="{{url_for('media', filename='home/title.png')}}">
+                <h1 class="color:primary">Sushi Food</h1>
+            </section>
+            <p class="detail">Enjoy a good dinner with the best dishes in the restaurant and improve your day.</p>
+            <a href="/menu" type="button" class="btn">Order Now 
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
+                  </svg>
+            </a>
+        </div>
+    </div>
+    <div class="picture">
+        <img class="img-fluid" src="{{url_for('media', filename='sushi/banner.jpg')}}">
+    </div>
+</div>
+{%-endblock%}

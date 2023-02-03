@@ -1,0 +1,188 @@
+@media screen and (min-width: 992px) {
+    .main-area {
+        display: flex;
+        flex-direction: row;
+        padding: 1em 0;
+    }
+
+    .main-area aside .navbar-collapse {
+        display: flex;
+        flex-direction: column;
+        width: 30em;
+        max-width: 30em;
+        /*background-color: #fcf5f0;*/
+        /*box-shadow: 2px 0px rgba(0, 0, 0, 0.2);*/
+    }
+
+    .main-area aside .title {
+        display: flex;
+        /*justify-content: center;*/
+        font-family: Lora, sans-serif;
+        font-size: 2em;
+        padding: 0.5em 1em;
+        background-color: #CD6A2F;
+        width: 100%;
+        color: white;
+        /*height: 4em;*/
+        margin-bottom: .5em;
+    }
+
+    .main-area .content .rect {
+        background-color: white;
+        transform: rotate(45deg);
+        height: 3em;
+        width: 3em;
+    }
+
+    .main-area .content .rect.left {
+        margin-left: -2.5em;
+    }
+
+    .main-area .content .rect.right {
+        margin-right: -2.5em;
+    }
+
+    .main-area .content .menu-body {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .main-area .content .menu-body .menu-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        background: white;
+        box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+        border-radius: 1em;
+        width: 31%;
+        padding: 1em;
+        margin: 1%;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .main-area {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        /*padding: 2em 0;*/
+    }
+
+    .main-area aside {
+        margin: 1em;
+        padding-bottom: 0;
+        background-color: white !important;
+    }
+
+    .main-area button.navbar-toggler {
+        display: flex;
+        align-items: center;
+    }
+
+    .main-area aside .title {
+        display: none;
+    }
+
+    .main-area aside .menu {
+        padding-top: 1em;
+    }
+
+    .main-area .recommend {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .main-area .recommend .content {
+        padding-left: 0.5em !important;
+    }
+
+    .main-area .content .menu-body .menu-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        background: white;
+        box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+        border-radius: 1em;
+        width: 48%;
+        padding: 1em;
+        margin: 1%;
+    }
+}
+
+.main-area aside {
+    display: flex;
+    flex-direction: column;
+    padding-top: 0 !important;
+    align-items: flex-start;
+}
+
+.main-area aside .menu {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    font-family: Sora, sans-serif;
+    font-size: 1.25em;
+    padding-right: 2em;
+    width: 100%;
+}
+
+.main-area aside .menu-item {
+    padding-bottom: 0.5em;
+}
+
+.main-area aside .menu-item.active {
+    color: #CD6A2F;
+}
+
+.main-area .content {
+    width: 100%;
+    padding: 0 0.5em;
+}
+
+.main-area .content .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #CD6A2F;
+    color: white;
+    padding: 1em;
+    /*width: 26em;*/
+    /*height: 4em;*/
+    overflow: hidden;
+    margin: 0 1% 1em 1%;
+}
+
+.main-area .content .category {
+    font-family: Lora, sans-serif;
+    font-size: 2em;
+}
+
+.main-area .content .menu-body {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.main-area .content .menu-body .menu-item .name{
+    font-family: Lora, sans-serif;
+    font-size: 1.25em;
+    padding-bottom: .5em;
+}
+
+.main-area .content .menu-body .menu-item .name .seq{
+    color: #686868;
+}
+
+.main-area .content .menu-body .menu-item .kind {
+    font-family: "Sora", sans-serif;
+    font-weight: 100;
+    font-size: .75em;
+    padding-bottom: 1.25em;
+    color: #686868;
+}
+
+.main-area .content .menu-body .menu-item .price {
+    font-family: "Sora", sans-serif;
+    color: #CD6A2F;
+}

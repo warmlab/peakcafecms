@@ -18,7 +18,7 @@ from app.models import db
 #from flask_migrate import Migrate
 #from celery import Celery
 
-app = create_app(os.getenv('FLASK_CONFIG') or 'default')
+app = create_app()
 #manager = Manager(app)
 #migrate = Migrate(app, db)
 

@@ -1,0 +1,95 @@
+@media screen and (min-width: 900px) {
+    .main-area {
+        display: flex;
+        flex-direction: row;
+        padding: 1em 0;
+        justify-content: space-around;
+    }
+
+    .main-area .recommend {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+@media screen and (max-width: 899px) {
+    .main-area {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 2em 0;
+    }
+
+    .main-area .recommend {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .main-area .recommend .content {
+        padding-left: 0.5em !important;
+    }
+}
+
+.main-area .recommend .content {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    padding-left: 5em
+}
+
+.main-area .recommend .title {
+    font-family: "Lora";
+    font-size: 3.5em;
+}
+
+.main-area .recommend a {
+    background-color: #CD6A2F;
+    color: white;
+    max-width: 12em;
+    font-family: "Sora", sans-serif;
+    margin-bottom: 1em;
+}
+
+.main-area .recommend .content > * {
+    padding-bottom: 0.5em;
+}
+
+.main-area .recommend .content .detail {
+    max-width: 24em;
+    font-family: "Sora", sans-serif;
+    font-weight: 100;
+    font-size: 1.25em;
+    color: #686868;
+    padding-top: 1em;
+    /*padding-bottom: 0;*/
+}
+
+.main-area .recommend .product {
+    display: flex;
+    flex-direction: row;
+}
+
+.main-area .recommend .product img {
+    padding-right: 1em;
+}
+
+.main-area .recommend .product h1 {
+    display: flex;
+    align-self: flex-end;
+    font-family: "Lora";
+    color: #CD6A2F;
+    font-size: 3em;
+}
+
+.main-area .picture {
+    display: flex;
+    justify-content: center;
+}
+
+.main-area .picture img {
+    width: 100%;
+    max-width: 50em;
+    max-height: 50em;
+    overflow: hidden;
+    padding: 0.5em;
+}

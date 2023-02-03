@@ -1,0 +1,9 @@
+@media only screen and (max-width: 40em) { /* small */
+    .category-box h2{
+}
+@media only screen and (min-width: 40.063em) { /* medium */
+    .category-box h2{}
+}
+@media only screen and (min-width: 64.063em) { /* large */
+    .category-box h2{}
+}

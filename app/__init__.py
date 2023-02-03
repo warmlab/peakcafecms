@@ -8,8 +8,10 @@ from config import config
 
 from app.models import db
 
-def create_app(config_name: str='default'):
+def create_app():
     app = Flask(__name__)
+    config_name = os.getenv('FLASK_CONFIG') or 'default'
+    print("[%s]" % config_name)
     app.config.from_object(config[config_name])
     config[config_name].init_app(app);
 
